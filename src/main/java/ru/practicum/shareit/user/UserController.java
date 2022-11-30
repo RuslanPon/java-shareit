@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
 import javax.validation.Valid;
 import java.util.Collection;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -22,25 +20,25 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public Collection<User> getAllUsers() {
+    public Collection<UserDto> getAllUsers() {
         log.info("getAllUsers");
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    public UserDto getUser(@PathVariable Long id) {
         log.info(String.format("getUser for id: %s", id));
         return userService.getUser(id);
     }
 
     @PostMapping()
-    public User createUser(@Valid @RequestBody User user) {
+    public UserDto createUser(@Valid @RequestBody User user) {
         log.info(String.format("createUser for object: %s", user));
         return userService.createUser(user);
     }
 
     @PatchMapping("/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
+    public UserDto updateUser(@PathVariable Long userId, @RequestBody User user) {
         log.info(String.format("updateUser for object: %s", user));
         return userService.updateUser(userId, user);
     }
