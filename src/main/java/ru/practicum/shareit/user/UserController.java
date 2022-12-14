@@ -17,7 +17,7 @@ import java.util.Collection;
 @RequestMapping(path = "/users")
 public class UserController {
     @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public Collection<UserDto> getAllUsers() {
@@ -32,15 +32,15 @@ public class UserController {
     }
 
     @PostMapping()
-    public UserDto createUser(@Valid @RequestBody User user) {
-        log.info(String.format("createUser for object: %s", user));
-        return userService.createUser(user);
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
+        log.info(String.format("createUser for object: %s", userDto));
+        return userService.createUser(userDto);
     }
 
     @PatchMapping("/{userId}")
-    public UserDto updateUser(@PathVariable Long userId, @RequestBody User user) {
-        log.info(String.format("updateUser for object: %s", user));
-        return userService.updateUser(userId, user);
+    public UserDto updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        log.info(String.format("updateUser for object: %s", userDto));
+        return userService.updateUser(userId, userDto);
     }
 
     @DeleteMapping("/{userId}")
