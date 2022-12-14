@@ -20,6 +20,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findAllByBookerAndStartIsAfter(User owner, LocalDateTime currentTime);
 
     List<Booking> findAllByBookerAndStatusIs(User owner, Status waiting);
+
     @Query("select b from Booking b " +
             "where b.item.owner.id =:ownerId")
     List<Booking> findAllByOwnerOfItem(Long ownerId);

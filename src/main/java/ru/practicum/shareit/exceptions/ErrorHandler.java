@@ -13,12 +13,12 @@ import java.util.Map;
 public class ErrorHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public void handleValidationException(ObjectNotFoundException exception, ServletWebRequest webRequest) throws IOException {
+    public void validationException(ObjectNotFoundException exception, ServletWebRequest webRequest) throws IOException {
         webRequest.getResponse().sendError(HttpStatus.NOT_FOUND.value(), exception.getMessage());
     }
 
     @ExceptionHandler(IllegalEnumStateException.class)
-    public ResponseEntity<Map<String, String>> IllegalStateException(IllegalEnumStateException exception) {
+    public ResponseEntity<Map<String, String>> illegalStateException(IllegalEnumStateException exception) {
         return new ResponseEntity<>(Map.of("error", exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
