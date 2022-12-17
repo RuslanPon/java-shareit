@@ -47,19 +47,20 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllBookingsByState(Long userId, String stringState) {
-        Optional<User> booker = userRepository.findById(userId);
+        var booker = userRepository.findById(userId);
         if (booker.isEmpty()) {
             throw new ObjectNotFoundException(String.format("User with id=%d not found", userId));
         }
         State state = State.stringToState(stringState);
-        return stateToRepository(booker.get(), state).stream()
+        return stateToRepository(booker.get(), state)
+                .stream()
                 .sorted(Comparator.comparing(BookingDto::getStart).reversed())
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<BookingDto> getAllBookingsByStateAndOwner(Long userId, String stringState) {
-        Optional<User> booker = userRepository.findById(userId);
+        var booker = userRepository.findById(userId);
         if (booker.isEmpty()) {
             throw new ObjectNotFoundException(String.format("User with id=%d not found", userId));
         }
@@ -121,20 +122,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private List<BookingDto> stateToRepository(User owner, State state) {
-        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         List<Booking> result = new ArrayList<>();
         switch (state) {
             case ALL:
                 result = bookingRepository.findBookingsByBooker(owner);
                 break;
             case CURRENT:
-                result = bookingRepository.findAllByBookerAndStartIsBeforeAndEndIsAfter(owner, currentTime, currentTime);
+                result = bookingRepository.findAllByBookerAndStartIsBeforeAndEndIsAfter(owner, now, now);
                 break;
             case PAST:
-                result = bookingRepository.findAllByBookerAndEndIsBeforeAndStatusIs(owner, currentTime, Status.APPROVED);
+                result = bookingRepository.findAllByBookerAndEndIsBeforeAndStatusIs(owner, now, Status.APPROVED);
                 break;
             case FUTURE:
-                result = bookingRepository.findAllByBookerAndStartIsAfter(owner, currentTime);
+                result = bookingRepository.findAllByBookerAndStartIsAfter(owner, now);
                 break;
             case WAITING:
                 result = bookingRepository.findAllByBookerAndStatusIs(owner, Status.WAITING);
@@ -149,20 +150,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private List<BookingDto> stateToRepositoryAndOwner(User owner, State state) {
-        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         List<Booking> result = new ArrayList<>();
         switch (state) {
             case ALL:
                 result = bookingRepository.findAllByOwnerOfItem(owner.getId());
                 break;
             case CURRENT:
-                result = bookingRepository.findAllByOwnerOfItemAndStartIsBeforeAndEndIsAfter(owner, currentTime);
+                result = bookingRepository.findAllByOwnerOfItemAndStartIsBeforeAndEndIsAfter(owner, now);
                 break;
             case PAST:
-                result = bookingRepository.findAllByOwnerOfItemAndEndIsBeforeAndStatusIs(owner.getId(), currentTime, Status.APPROVED);
+                result = bookingRepository.findAllByOwnerOfItemAndEndIsBeforeAndStatusIs(owner.getId(), now, Status.APPROVED);
                 break;
             case FUTURE:
-                result = bookingRepository.findAllByOwnerOfItemAndStartIsAfter(owner.getId(), currentTime);
+                result = bookingRepository.findAllByOwnerOfItemAndStartIsAfter(owner.getId(), now);
                 break;
             case WAITING:
                 result = bookingRepository.findAllByOwnerOfItemAndStatusIs(owner.getId(), Status.WAITING);
