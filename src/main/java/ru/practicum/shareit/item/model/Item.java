@@ -25,7 +25,7 @@ public class Item {
     private String description;
     @Column(name = "is_available")
     private Boolean available;
-    @OneToOne()
+    @ManyToOne(optional = false)
     private User owner;
     @OneToOne()
     private ItemRequest request;

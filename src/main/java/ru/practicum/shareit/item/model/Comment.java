@@ -20,9 +20,9 @@ public class Comment {
     private Long id;
     @Column(name = "text")
     private String text;
-    @OneToOne()
+    @ManyToOne(optional = false)
     private Item item;
-    @OneToOne()
+    @ManyToOne(optional = false)
     private User author;
     @Column(name = "created_date")
     private LocalDateTime created;
