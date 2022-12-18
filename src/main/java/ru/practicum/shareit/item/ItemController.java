@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.service.ItemService;
+import ru.practicum.shareit.item.service.ItemServiceImpl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -19,7 +20,7 @@ import java.util.Collection;
 @RequestMapping("/items")
 public class ItemController {
     @Autowired
-    private final ItemService itemService;
+    private final ItemServiceImpl itemService;
 
     @GetMapping
     public Collection<ItemDto> getAllItems(@RequestHeader("X-Sharer-User-Id") long userId) {
@@ -28,9 +29,9 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public ItemDto getItem(@PathVariable long itemId) {
+    public ItemDto getItem(@PathVariable Long itemId, @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("Get item for ID: " + itemId);
-        return itemService.getItem(itemId);
+        return itemService.getItem(itemId, userId);
     }
 
     @PostMapping
@@ -51,5 +52,9 @@ public class ItemController {
         return itemService.searchItemByText(text);
     }
 
-
+    @PostMapping("{itemId}/comment")
+    public CommentDto createComment(@RequestBody @Valid CommentDto commentDto, @RequestHeader("X-Sharer-User-Id") Long userId,
+                                    @PathVariable Long itemId) {
+        return itemService.createComment(commentDto, userId, itemId);
+    }
 }
