@@ -4,6 +4,7 @@ DROP table IF EXISTS PUBLIC.bookings cascade;
 DROP table IF EXISTS PUBLIC.comments cascade;
 drop table IF EXISTS PUBLIC.items_comments cascade;
 drop table IF EXISTS PUBLIC.requests cascade;
+drop table IF EXISTS PUBLIC.requests_items cascade;
 
 CREATE TABLE IF NOT EXISTS PUBLIC.users
 (
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS requests
     id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     description  varchar(3000),
     requestor_id BIGINT NOT NULL,
+    created TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT fk_requests_to_users FOREIGN KEY (requestor_id) REFERENCES users (id)
 );
 
@@ -53,4 +55,12 @@ CREATE TABLE IF NOT EXISTS comments
     created_date TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT fk_comments_to_items FOREIGN KEY (item_id) REFERENCES items (id),
     CONSTRAINT fk_comments_to_users FOREIGN KEY (author_id) REFERENCES users (id)
+);
+
+CREATE TABLE IF NOT EXISTS requests_items
+(
+    item_request_id BIGINT not null,
+    items_id BIGINT not null,
+    CONSTRAINT fk_requests_items_to_items FOREIGN KEY(items_id) REFERENCES items(id),
+    CONSTRAINT fk_requests_items_to_requests FOREIGN KEY(item_request_id) REFERENCES requests(id)
 );

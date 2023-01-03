@@ -1,9 +1,6 @@
 package ru.practicum.shareit.item.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.NonFinal;
 import ru.practicum.shareit.booking.dto.BookingDto;
 
@@ -11,18 +8,25 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Data
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
+@Builder
+@Value
 public class ItemDto {
+    @NonFinal
     Long id;
     @NotNull
     @NotBlank
+    @NonFinal
     String name;
     @NotNull
     @NotBlank
+    @NonFinal
     String description;
     @NotNull
+    @NonFinal
     Boolean available;
     @NonFinal
     @Setter
@@ -33,4 +37,7 @@ public class ItemDto {
     @NonFinal
     @Setter
     List<CommentDto> comments;
+    @NonFinal
+    @Setter
+    Long requestId;
 }

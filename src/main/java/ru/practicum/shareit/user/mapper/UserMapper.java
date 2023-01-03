@@ -9,7 +9,7 @@ public class UserMapper {
     }
 
     public static User toUser(UserDto userDto, User user) {
-        if (userDto.getId() != 0) {
+        if (userDto.getId() != null) {
             user.setId(userDto.getId());
         }
         if (userDto.getName() != null) {

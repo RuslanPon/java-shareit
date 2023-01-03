@@ -1,9 +1,6 @@
 package ru.practicum.shareit.item.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
@@ -14,6 +11,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "items", schema = "public")
+@Getter
+@Setter
 @ToString
 public class Item {
     @Id
@@ -27,7 +26,7 @@ public class Item {
     private Boolean available;
     @ManyToOne(optional = false)
     private User owner;
-    @OneToOne()
+    @ManyToOne()
     private ItemRequest request;
 
     public Item(Item newItem) {
