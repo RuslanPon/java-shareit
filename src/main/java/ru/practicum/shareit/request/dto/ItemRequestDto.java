@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-@Value
 public class ItemRequestDto {
     @NonFinal
     Long id;

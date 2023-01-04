@@ -18,6 +18,7 @@ import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.service.ItemRequestService;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,9 +36,7 @@ public class RequestControllerTest {
     @InjectMocks
     private ItemRequestController controller;
     private final ObjectMapper mapper = new ObjectMapper();
-
     private MockMvc mvc;
-
     private ItemRequestDto itemRequestDto;
     private MultiValueMap<String, String> headers;
 
@@ -83,5 +82,18 @@ public class RequestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(itemRequestDto.getId()), Long.class))
                 .andExpect(jsonPath("$.description", is(itemRequestDto.getDescription())));
+    }
+
+    @Test
+    void testGetALLRequest() throws Exception {
+        when(itemRequestService.getAllItemRequest(anyLong()))
+                .thenReturn(Collections.singletonList(itemRequestDto));
+        mvc.perform(get("/requests")
+                        .content(mapper.writeValueAsString(itemRequestDto))
+                        .headers(new HttpHeaders(headers))
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

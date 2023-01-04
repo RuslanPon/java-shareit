@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Value
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookingDto {
     @NonFinal

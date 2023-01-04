@@ -12,6 +12,7 @@ ____
 * Maven
 * Lombok
 * MockMvc
+* Integration testing, Unit testing
 * This API was also tested using Postman
 ----
 ![img_1.png](img_1.png)

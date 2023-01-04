@@ -25,9 +25,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@SpringBootTest(
-        properties = "db.name=test1",
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(properties = "db.name=test1", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemServiceImplTest {
@@ -68,6 +66,13 @@ public class ItemServiceImplTest {
         assertThat(item.getName(), equalTo(itemDto.getName()));
         assertThat(item.getDescription(), equalTo(itemDto.getDescription()));
         assertThat(item.getAvailable(), equalTo(itemDto.getAvailable()));
+    }
+
+    @Order(7)
+    @Test
+    void testGetAllItem() {
+        Collection<ItemDto> items = itemService.getAllItems( 1L);
+        assertThat(items.size(), notNullValue());
     }
 
     @Order(4)
