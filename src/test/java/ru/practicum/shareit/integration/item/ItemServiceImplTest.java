@@ -71,7 +71,7 @@ public class ItemServiceImplTest {
     @Order(7)
     @Test
     void testGetAllItem() {
-        Collection<ItemDto> items = itemService.getAllItems( 1L);
+        Collection<ItemDto> items = itemService.getAllItems(1L);
         assertThat(items.size(), notNullValue());
     }
 
