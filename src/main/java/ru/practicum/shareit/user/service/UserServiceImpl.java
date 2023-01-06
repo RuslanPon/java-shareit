@@ -9,7 +9,6 @@ import ru.practicum.shareit.user.mapper.UserMapper;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
-import javax.validation.ValidationException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,9 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        //checkingEmail(userDto);
         User newUser = userRepository.save(UserMapper.toUser(userDto, new User()));
-        log.info("User created" + newUser);
+        log.info("User created {}", newUser);
         return UserMapper.toUserDto(newUser);
     }
 
@@ -53,20 +51,12 @@ public class UserServiceImpl implements UserService {
         }
         UserMapper.toUser(userDto, user.get());
         User updatedUser = userRepository.save(user.get());
-        log.info("User updated" + updatedUser);
+        log.info("User updated {}", updatedUser);
         return UserMapper.toUserDto(updatedUser);
     }
 
     @Override
     public void removeUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    private void checkingEmail(UserDto userDto) {
-        Collection<User> users = userRepository.findAll();
-        boolean us = users.stream().anyMatch(user1 -> user1.getEmail().equals(userDto.getEmail()));
-        if (us) {
-            throw new ValidationException("The user with this email is already registered");
-        }
     }
 }

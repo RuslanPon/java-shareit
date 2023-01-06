@@ -26,25 +26,25 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable Long id) {
-        log.info(String.format("getUser for id: %s", id));
+        log.info("getUser for id: {}", id);
         return userService.getUser(id);
     }
 
     @PostMapping()
     public UserDto createUser(@Valid @RequestBody UserDto userDto) {
-        log.info(String.format("createUser for object: %s", userDto));
+        log.info("createUser for object: {}", userDto);
         return userService.createUser(userDto);
     }
 
     @PatchMapping("/{userId}")
     public UserDto updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
-        log.info(String.format("updateUser for object: %s", userDto));
+        log.info("updateUser for object: {}", userDto);
         return userService.updateUser(userId, userDto);
     }
 
     @DeleteMapping("/{userId}")
     public void removeUser(@PathVariable Long userId) {
-        log.info(String.format("removeUser for id: %s", userId));
+        log.info("removeUser for id: {}", userId);
         userService.removeUser(userId);
     }
 }

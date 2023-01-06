@@ -8,10 +8,11 @@ The service not only allows you to book a thing for certain dates, but also clos
 ____
 #### The application was written in Java using the following technologies:
 * Spring Boot
-* JDBC 
+* Hibernate 
 * Maven
 * Lombok
 * MockMvc
+* Integration testing, Unit testing
 * This API was also tested using Postman
 ----
-![img.png](img.png)
+![img_1.png](img_1.png)
