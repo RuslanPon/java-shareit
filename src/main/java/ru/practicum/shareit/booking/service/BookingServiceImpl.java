@@ -77,7 +77,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> getAllBookingsByStateAndOwner(Long userId, String stringState, Integer from, Integer size) {
         Pageable pageable = sizeAndFromToPageable(from, size);
-        Optional<User>  booker = userRepository.findById(userId);
+        Optional<User> booker = userRepository.findById(userId);
         if (booker.isEmpty()) {
             throw new ObjectNotFoundException(String.format("User with id=%d not found", userId));
         }
@@ -115,7 +115,7 @@ public class BookingServiceImpl implements BookingService {
         }
         newBooking.setStatus(Status.WAITING);
         Booking createdBooking = bookingRepository.save(newBooking);
-        log.info("Booking created" + createdBooking);
+        log.info("Booking created {}", createdBooking);
         return BookingMapper.toBookingDto(createdBooking);
     }
 
@@ -135,7 +135,7 @@ public class BookingServiceImpl implements BookingService {
             booking.setStatus(Status.REJECTED);
         }
         Booking editedBooking = bookingRepository.save(booking);
-        log.info("Booking updated" + editedBooking);
+        log.info("Booking updated {}", editedBooking);
         return BookingMapper.toBookingDto(editedBooking);
     }
 

@@ -102,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
             itemRequest.ifPresent(newItem::setRequest);
         }
         Item createdItem = itemRepository.save(newItem);
-        log.info("Item created" + createdItem);
+        log.info("Item created {}", createdItem);
         return ItemMapper.toItemDto(itemRepository.save(newItem));
     }
 
@@ -113,7 +113,7 @@ public class ItemServiceImpl implements ItemService {
             throw new ObjectNotFoundException("User is not owner of item!");
         }
         Item editItem = itemRepository.save(ItemMapper.toItem(item, itemDto));
-        log.info("Item updated" + editItem);
+        log.info("Item updated {}", editItem);
         return ItemMapper.toItemDto(editItem);
     }
 
@@ -149,7 +149,7 @@ public class ItemServiceImpl implements ItemService {
             throw new BadRequestException(String.format("User with id=%d not owner of item id=%d", userId, itemId));
         }
         Comment createdComment = commentRepository.save(newComment);
-        log.info("Comment created" + createdComment);
+        log.info("Comment created {}", createdComment);
         return CommentMapper.toCommentDto(createdComment);
     }
 }

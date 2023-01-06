@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         User newUser = userRepository.save(UserMapper.toUser(userDto, new User()));
-        log.info("User created" + newUser);
+        log.info("User created {}", newUser);
         return UserMapper.toUserDto(newUser);
     }
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         }
         UserMapper.toUser(userDto, user.get());
         User updatedUser = userRepository.save(user.get());
-        log.info("User updated" + updatedUser);
+        log.info("User updated {}", updatedUser);
         return UserMapper.toUserDto(updatedUser);
     }
 
@@ -59,5 +59,4 @@ public class UserServiceImpl implements UserService {
     public void removeUser(Long id) {
         userRepository.deleteById(id);
     }
-
 }

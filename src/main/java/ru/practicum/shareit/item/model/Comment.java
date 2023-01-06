@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
@@ -12,16 +13,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(name = "text")
-    private String text;
+    String text;
     @ManyToOne(optional = false)
-    private Item item;
+    Item item;
     @ManyToOne(optional = false)
-    private User author;
+    User author;
     @Column(name = "created_date")
-    private LocalDateTime created;
+    LocalDateTime created;
 }

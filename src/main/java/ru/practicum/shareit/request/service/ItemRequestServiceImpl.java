@@ -94,7 +94,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         }
         newItemRequest.setCreated(LocalDateTime.now());
         ItemRequest createdItemRequest = itemRequestRepository.save(newItemRequest);
-        log.info("ItemRequest created" + createdItemRequest);
+        log.info("ItemRequest created {}", createdItemRequest);
         return ItemRequestMapper.toItemRequestDto(createdItemRequest);
     }
 

@@ -1,9 +1,7 @@
 package ru.practicum.shareit.request.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -17,14 +15,15 @@ import java.util.List;
 @Setter
 @ToString
 @Table(name = "requests", schema = "public")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String description;
+    Long id;
+    String description;
     @OneToOne()
-    private User requester;
-    private LocalDateTime created;
+    User requester;
+    LocalDateTime created;
     @OneToMany()
-    private List<Item> items;
+    List<Item> items;
 }

@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
@@ -13,20 +14,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    long id;
     @Column(name = "item_name", nullable = false)
-    private String name;
+    String name;
     @Column(name = "description")
-    private String description;
+    String description;
     @Column(name = "is_available")
-    private Boolean available;
+    Boolean available;
     @ManyToOne(optional = false)
-    private User owner;
+    User owner;
     @ManyToOne()
-    private ItemRequest request;
+    ItemRequest request;
 
     public Item(Item newItem) {
         this.setId(newItem.getId());

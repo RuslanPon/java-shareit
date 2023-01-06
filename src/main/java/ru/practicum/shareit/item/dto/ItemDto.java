@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import ru.practicum.shareit.booking.dto.BookingDto;
 
@@ -14,14 +15,13 @@ import java.util.List;
 @Getter
 @Builder
 @Value
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDto {
     @NonFinal
     Long id;
-    @NotNull
     @NotBlank
     @NonFinal
     String name;
-    @NotNull
     @NotBlank
     @NonFinal
     String description;
