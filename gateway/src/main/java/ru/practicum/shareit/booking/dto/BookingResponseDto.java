@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Value
-@ToString
 public class BookingResponseDto {
     @NonFinal
     Long id;
